@@ -1,5 +1,22 @@
+# Dependencies
+node_modules/
+
+# Keep Bun as the single package manager for this project
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Build and framework output
+dist/
+dist-ssr/
+.output/
+.vinxi/
+.tanstack/
+.nitro/
+.vite/
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,24 +24,53 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-.output
-.vinxi
-.tanstack/**
-.nitro
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
 *.local
+*.pem
+*.key
+
+# TypeScript, lint, test, and coverage caches
+*.tsbuildinfo
+.eslintcache
+.cache/
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Temporary files
+.tmp/
+tmp/
+temp/
+*.tmp
+*.temp
+*~
 
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
 
+# Deployment tooling
+.vercel/
+.netlify/
+
+# Local Supabase state (keep supabase/migrations tracked)
+.supabase/
+supabase/.branches/
+supabase/.temp/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
+._*
+Thumbs.db
+Desktop.ini
 *.suo
 *.ntvs*
 *.njsproj

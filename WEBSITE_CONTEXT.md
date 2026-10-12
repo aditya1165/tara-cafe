@@ -27,6 +27,8 @@ At launch, the business will offer catering only. Delivery is planned for a late
 - **Online ordering:** Do not launch ordering yet. Position it as "coming soon" while catering inquiries and phone calls remain the immediate conversion paths.
 - **Delivery:** Not currently available. Delivery will be rolled out later.
 - **Burmese language:** Keep the existing Burmese text for now and review its accuracy later.
+- **Public contact details:** Do not display a phone number, email address, website address, or social handles. Collect customer information through the inquiry form and have Tara Cafe follow up privately.
+- **Full menu:** Provide the catering menu as a linked PDF from a "View Menu" button at the end of the menu section.
 
 ## Placeholder Content
 
@@ -118,21 +120,18 @@ The intended conversion paths are catering inquiries, calls, and eventual online
 For the current phase:
 
 - Catering inquiries are the primary website action.
-- Phone calls should remain prominent.
+- Direct phone and email contact details are intentionally not public; Tara Cafe will follow up from submitted inquiries.
 - Online ordering is marked as coming soon.
 - The meaning of online ordering still needs to be finalized. Possibilities include catering package checkout, catering deposits, or future individual meal delivery.
-- The current inquiry form is visual only. It prevents the browser's default submission and does not send or save information.
+- The inquiry form is wired to a validated TanStack server function that stores submissions in a private Supabase table once the project URL, server secret, and database migration are configured.
+- The public page intentionally does not expose direct contact details; the inquiry workflow will be the contact channel.
 
-Form infrastructure will be discussed later, including:
+Remaining form infrastructure work includes:
 
-- Submission destination
 - Email notifications
 - Automatic customer confirmation
-- Data storage
-- Spam protection
-- Validation
-- Success and error states
-- Privacy consent
+- Production rate limiting and CAPTCHA/Turnstile protection
+- Data-retention and deletion policies
 - CRM or mailing-list integration
 
 ## Deferred Business Decisions
@@ -219,12 +218,10 @@ Outstanding SEO work includes:
 
 ## Functional and Technical Gaps
 
-- The inquiry form does not submit.
-- Instagram and Facebook links point to placeholders.
+- Supabase storage is implemented in code but will not accept real submissions until a Supabase project, database migration, and production environment secrets are configured.
 - The phone number, email, domain, and social handle are placeholders.
 - There is no online-ordering system.
 - There is no CMS or editable content source.
-- There is no database.
 - There is no email or CRM integration.
 - There is no analytics or advertising tracking.
 - There is no cookie or privacy-consent workflow.
@@ -262,6 +259,10 @@ The following changes were applied to `src/routes/index.tsx` during the initial 
 - Changed the hero action from "View Catering Menu" to "Plan Your Event."
 - Linked the main hero action to the inquiry section.
 - Added an "Online ordering coming soon" notice.
+- Replaced the static hero image with an automatically rotating, manually controllable image carousel using placeholder food photography.
+- Made the Tara Cafe name a prominent part of the hero above the Burmese translation.
+- Expanded the inquiry form to collect customer contact preferences, event logistics, budget, service style, dietary needs, event details, and contact consent.
+- Connected the inquiry form to a server-validated Supabase storage path with private database permissions, submission status feedback, and a honeypot field.
 - Removed the delivery claim from the footer.
 - Removed the delivery minimum from the FAQ.
 - Rewrote the minimum-order answer so it does not claim an unverified threshold.
@@ -281,3 +282,13 @@ When work resumes, the most useful order is:
 9. Add the necessary legal, privacy, allergen, and policy content.
 10. Finalize production hosting, domain, sitemap, and SEO details.
 
+## Product TODOs
+
+- Add a **Use my location** action beside the inquiry form's event-location field.
+- Request browser location permission only after the customer explicitly clicks the action.
+- Keep manual location entry available when permission is denied or geolocation is unavailable.
+- Add venue and address autocomplete suggestions, biased toward Tara Cafe's final service area.
+- Select and configure a location provider such as Google Places before enabling autocomplete.
+- Store the selected venue name, formatted address, provider place ID, latitude, and longitude with the inquiry.
+- Add the required provider attribution, privacy disclosure, and production API-key restrictions.
+- Offer an optional 15-minute consultation scheduling step after a catering inquiry is successfully saved.
